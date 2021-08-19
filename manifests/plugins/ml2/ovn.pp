@@ -38,12 +38,6 @@
 #   verify certificates presented to it by SSL peers
 #   Defaults to $::os_service_default
 #
-# [*package_ensure*]
-#   (optional) The intended state of the python-networking-odl
-#   package, i.e. any of the possible values of the 'ensure'
-#   property for a package resource type.
-#   Defaults to 'present'
-#
 # [*ovsdb_connection_timeout*]
 #   (optional) Timeout in seconds for the OVSDB connection transaction
 #   Defaults to $::os_service_default
@@ -101,7 +95,15 @@
 #              grep "Check pkt length action".
 #   Type: boolean
 #   Defaults to $::os_service_default
-
+#
+# DEPRECATED PARAMETERS
+#
+# [*package_ensure*]
+#   (optional) The intended state of the python-networking-odl
+#   package, i.e. any of the possible values of the 'ensure'
+#   property for a package resource type.
+#   Defaults to 'present'
+#
 class neutron::plugins::ml2::ovn(
   $ovn_nb_connection        = $::os_service_default,
   $ovn_sb_connection        = $::os_service_default,
@@ -111,7 +113,6 @@ class neutron::plugins::ml2::ovn(
   $ovn_sb_private_key       = $::os_service_default,
   $ovn_sb_certificate       = $::os_service_default,
   $ovn_sb_ca_cert           = $::os_service_default,
-  $package_ensure           = 'present',
   $ovsdb_connection_timeout = $::os_service_default,
   $neutron_sync_mode        = $::os_service_default,
   $ovn_l3_mode              = $::os_service_default,
@@ -121,7 +122,9 @@ class neutron::plugins::ml2::ovn(
   $dns_servers              = $::os_service_default,
   $vhostuser_socket_dir     = $::os_service_default,
   $ovn_emit_need_to_frag    = $::os_service_default,
-  ) {
+  # DEPRECATED PARAMETERS
+  $package_ensure           = undef,
+) {
 
   include neutron::deps
   require ::neutron::plugins::ml2
@@ -134,16 +137,13 @@ class neutron::plugins::ml2::ovn(
     fail( 'Invalid value for vif_type parameter' )
   }
 
+  if $package_ensure != undef {
+    warning('The package_ensure parameter has been deprecated since the Ussuri release and has no effect')
+  }
+
   if ! ( $neutron_sync_mode in ['off', 'log', 'repair', $::os_service_default] ) {
     fail( 'Invalid value for neutron_sync_mode parameter' )
   }
-
-  ensure_resource('package', $::neutron::params::ovn_plugin_package,
-    {
-      ensure => $package_ensure,
-      tag    => 'openstack',
-    }
-  )
 
   neutron_plugin_ml2 {
     'ovn/ovn_nb_connection'        : value => $ovn_nb_connection;
