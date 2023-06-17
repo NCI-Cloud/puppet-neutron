@@ -124,19 +124,18 @@
 class neutron::agents::ovn_metadata (
   $shared_secret,
   $package_ensure            = 'present',
-  $enabled                   = true,
-  $manage_service            = true,
-  $debug                     = false,
-  $auth_ca_cert              = $::os_service_default,
-  $metadata_ip               = $::os_service_default,
-  $metadata_host             = $::os_service_default,
-  $metadata_port             = $::os_service_default,
-  $metadata_protocol         = $::os_service_default,
-  $metadata_workers          = 2,
-  $metadata_backlog          = $::os_service_default,
-  $metadata_insecure         = $::os_service_default,
-  $nova_client_cert          = $::os_service_default,
-  $nova_client_priv_key      = $::os_service_default,
+  Boolean $enabled           = true,
+  Boolean $manage_service    = true,
+  $debug                     = $facts['os_service_default'],
+  $auth_ca_cert              = $facts['os_service_default'],
+  $metadata_host             = $facts['os_service_default'],
+  $metadata_port             = $facts['os_service_default'],
+  $metadata_protocol         = $facts['os_service_default'],
+  $metadata_workers          = $facts['os_service_default'],
+  $metadata_backlog          = $facts['os_service_default'],
+  $metadata_insecure         = $facts['os_service_default'],
+  $nova_client_cert          = $facts['os_service_default'],
+  $nova_client_priv_key      = $facts['os_service_default'],
   $ovsdb_connection          = 'tcp:127.0.0.1:6640',
   $ovs_manager               = 'ptcp:6640:127.0.0.1',
   $ovn_sb_connection         = $::os_service_default,
@@ -152,7 +151,7 @@ class neutron::agents::ovn_metadata (
   $purge_config              = false,
   # DEPRECATED PARAMETERS
   $ovn_remote_probe_interval = undef,
-  ) {
+) {
 
   include neutron::deps
   include neutron::params

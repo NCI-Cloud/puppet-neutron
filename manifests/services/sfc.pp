@@ -44,9 +44,9 @@
 #
 class neutron::services::sfc (
   $package_ensure    = 'present',
-  $sfc_driver        = $::os_service_default,
-  $fc_driver         = $::os_service_default,
-  $sync_db           = false,
+  $sfc_driver        = $facts['os_service_default'],
+  $fc_driver         = $facts['os_service_default'],
+  Boolean $sync_db   = false,
   $purge_config      = false,
 ) {
 

@@ -60,9 +60,9 @@
 
 class neutron::agents::metering (
   $package_ensure           = present,
-  $enabled                  = true,
-  $manage_service           = true,
-  $debug                    = $::os_service_default,
+  Boolean $enabled          = true,
+  Boolean $manage_service   = true,
+  $debug                    = $facts['os_service_default'],
   $interface_driver         = 'neutron.agent.linux.interface.OVSInterfaceDriver',
   $driver                   = 'neutron.services.metering.drivers.noop.noop_driver.NoopMeteringDriver',
   $measure_interval         = $::os_service_default,

@@ -117,8 +117,8 @@
 #
 class neutron::agents::ml2::networking_baremetal (
   $password,
-  $enabled                 = true,
-  $manage_service          = true,
+  Boolean $enabled         = true,
+  Boolean $manage_service  = true,
   $package_ensure          = 'present',
   $endpoint_override       = $::os_service_default,
   $cafile                  = $::os_service_default,

@@ -71,10 +71,10 @@
 #
 class neutron::agents::l2gw (
   $package_ensure                   = 'present',
-  $enabled                          = true,
-  $manage_service                   = true,
-  $debug                            = $::os_service_default,
-  $ovsdb_hosts                      = $::os_service_default,
+  Boolean $enabled                  = true,
+  Boolean $manage_service           = true,
+  $debug                            = $facts['os_service_default'],
+  $ovsdb_hosts                      = $facts['os_service_default'],
   $enable_manager                   = false,
   $manager_table_listening_port     = '6632',
   $l2_gw_agent_priv_key_base_path   = $::os_service_default,

@@ -43,12 +43,12 @@
 #   Defaults to false.
 #
 class neutron::services::l2gw (
-  $default_interface_name       = $::os_service_default,
-  $default_device_name          = $::os_service_default,
-  $quota_l2_gateway             = $::os_service_default,
-  $periodic_monitoring_interval = $::os_service_default,
-  $service_providers            = $::os_service_default,
-  $sync_db                      = false,
+  $default_interface_name       = $facts['os_service_default'],
+  $default_device_name          = $facts['os_service_default'],
+  $quota_l2_gateway             = $facts['os_service_default'],
+  $periodic_monitoring_interval = $facts['os_service_default'],
+  $service_providers            = $facts['os_service_default'],
+  Boolean $sync_db              = false,
   $package_ensure               = 'present',
   $purge_config                 = false,
 ) {

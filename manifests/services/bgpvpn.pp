@@ -39,8 +39,8 @@
 #
 class neutron::services::bgpvpn (
   $package_ensure    = 'present',
-  $service_providers = $::os_service_default,
-  $sync_db           = false,
+  $service_providers = $facts['os_service_default'],
+  Boolean $sync_db   = false,
   $purge_config      = false,
 ) {
 

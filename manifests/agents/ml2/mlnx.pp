@@ -61,16 +61,16 @@
 #   Defaults to false
 #
 class neutron::agents::ml2::mlnx (
-  $package_ensure             = 'present',
-  $enabled                    = true,
-  $manage_service             = true,
-  $manage_package             = true,
-  $physical_interface_mappings                     = $::os_service_default,
-  $polling_interval                                = $::os_service_default,
-  $dhcp_broadcast_reply                            = $::os_service_default,
-  $interface_driver                                = $::os_service_default,
-  $multi_interface_driver_mappings                 = $::os_service_default,
-  $ipoib_physical_interface                        = $::os_service_default,
+  $package_ensure                                  = 'present',
+  Boolean $enabled                                 = true,
+  Boolean $manage_service                          = true,
+  Boolean $manage_package                          = true,
+  $physical_interface_mappings                     = $facts['os_service_default'],
+  $polling_interval                                = $facts['os_service_default'],
+  $dhcp_broadcast_reply                            = $facts['os_service_default'],
+  $interface_driver                                = $facts['os_service_default'],
+  $multi_interface_driver_mappings                 = $facts['os_service_default'],
+  $ipoib_physical_interface                        = $facts['os_service_default'],
   $enable_multi_interface_driver_cache_maintenance = false,
 ) {
 

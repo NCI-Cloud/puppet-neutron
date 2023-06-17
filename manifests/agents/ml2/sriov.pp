@@ -99,10 +99,10 @@
 #
 class neutron::agents::ml2::sriov (
   $package_ensure                       = 'present',
-  $enabled                              = true,
-  $manage_service                       = true,
-  $physical_device_mappings             = $::os_service_default,
-  $rpc_response_max_timeout             = $::os_service_default,
+  Boolean $enabled                      = true,
+  Boolean $manage_service               = true,
+  $physical_device_mappings             = $facts['os_service_default'],
+  $rpc_response_max_timeout             = $facts['os_service_default'],
   $polling_interval                     = 2,
   $report_interval                      = $::os_service_default,
   $exclude_devices                      = $::os_service_default,
