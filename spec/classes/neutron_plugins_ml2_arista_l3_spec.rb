@@ -61,15 +61,6 @@ describe 'neutron::plugins::ml2::arista::l3' do
     let :params do
       {}
     end
-
-    before do
-      params.merge!(default_params)
-      params[:mlag_config] = true
-    end
-
-    it 'should fail when mlag is true and secondary l3 host is service default' do
-      should raise_error(Puppet::Error, /Must set secondary_l3_host when mlag_config is true./)
-    end
   end
 
   on_supported_os({

@@ -286,12 +286,9 @@ class neutron::server (
   }
 
   if !is_service_default($dhcp_load_type) {
-    validate_legacy(Enum['networks', 'subnets', 'ports'], 'validate_re', $dhcp_load_type,
-      [['^networks$', '^subnets$', '^ports$']])
-  }
-
-  if !is_service_default($service_providers) {
-    validate_legacy(Array, 'validate_array', $service_providers)
+    if ! ($dhcp_load_type in ['networks', 'subnets', 'ports'] ) {
+      fail('Unsupported dhcp_load_type. It should be one of networks, subnets and ports.')
+    }
   }
 
   if $ensure_vpnaas_package {
