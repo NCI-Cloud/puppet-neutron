@@ -56,7 +56,7 @@ class neutron::plugins::opencontrail (
   $api_server_ip              = $::os_service_default,
   $api_server_port            = $::os_service_default,
   $multi_tenancy              = $::os_service_default,
-  $contrail_extensions        = $::os_service_default,
+  Array[String] $contrail_extensions = [],
   $keystone_auth_url          = $::os_service_default,
   $keystone_admin_user        = $::os_service_default,
   $keystone_admin_tenant_name = $::os_service_default,
@@ -68,8 +68,6 @@ class neutron::plugins::opencontrail (
 
   include neutron::deps
   include neutron::params
-
-  validate_legacy(Array, 'validate_array', $contrail_extensions)
 
   package { 'neutron-plugin-contrail':
     ensure => $package_ensure,

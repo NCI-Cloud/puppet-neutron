@@ -32,7 +32,7 @@
 #
 class neutron::plugins::nvp (
   $default_tz_uuid,
-  $nvp_controllers,
+  Array[String] $nvp_controllers,
   $nvp_user,
   $nvp_password,
   $default_l3_gw_service_uuid = $::os_service_default,
@@ -52,8 +52,6 @@ class neutron::plugins::nvp (
     name   => $::neutron::params::nvp_server_package,
     tag    => ['openstack', 'neutron-package'],
   }
-
-  validate_legacy(Array, 'validate_array', $nvp_controllers)
 
   resources { 'neutron_plugin_nvp':
     purge => $purge_config,

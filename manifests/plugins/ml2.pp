@@ -135,7 +135,7 @@ class neutron::plugins::ml2 (
   $vni_ranges                = '10:100',
   $enable_security_group     = $::os_service_default,
   $package_ensure            = 'present',
-  $physical_network_mtus     = $::os_service_default,
+  Array[String] $physical_network_mtus = [],
   $path_mtu                  = 0,
   $purge_config              = false,
   $max_header_size           = $::os_service_default,
@@ -211,12 +211,11 @@ class neutron::plugins::ml2 (
     'securitygroup/enable_security_group':  value => $enable_security_group;
   }
 
-  if is_service_default($physical_network_mtus) {
+  if length($physical_network_mtus) == 0 {
     neutron_plugin_ml2 {
       'ml2/physical_network_mtus': ensure => absent;
     }
   } else {
-    validate_legacy(Array, 'validate_array', $physical_network_mtus)
     neutron_plugin_ml2 {
       'ml2/physical_network_mtus': value => join($physical_network_mtus, ',');
     }

@@ -253,7 +253,7 @@ class neutron::server (
   $enable_dvr                       = $facts['os_service_default'],
   $network_scheduler_driver         = $facts['os_service_default'],
   $dhcp_load_type                   = $facts['os_service_default'],
-  $default_availability_zones       = $facts['os_service_default'],
+  Array[String] $default_availability_zones = $facts['os_service_default'],
   $allow_automatic_l3agent_failover = $facts['os_service_default'],
   $allow_automatic_dhcp_failover    = $facts['os_service_default'],
   Boolean $l3_ha                    = false,
@@ -279,10 +279,6 @@ class neutron::server (
 
   if $validate != undef {
     warning('The neutron::server::validate parameter has been deprecated and has no effect')
-  }
-
-  if !is_service_default($default_availability_zones) {
-    validate_legacy(Array, 'validate_array', $default_availability_zones)
   }
 
   if !is_service_default($dhcp_load_type) {
